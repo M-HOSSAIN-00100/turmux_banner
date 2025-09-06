@@ -1,0 +1,54 @@
+#!/usr/bin/bash
+
+# Clear screen
+clear
+
+# User Name
+user="SHADOW-X"
+
+# Install required packages (if not installed)
+pkg install figlet -y
+pkg install python -y
+pkg install ruby -y
+pkg install ncurses-utils -y
+pip install pyfiglet termcolor
+gem install lolcat
+
+# Function to simulate typing effect
+type_text() {
+    text="$1"
+    delay="${2:-0.05}"
+    for (( i=0; i<${#text}; i++ )); do
+        echo -n "${text:$i:1}"
+        sleep $delay
+    done
+    echo ""
+}
+
+# Clear again
+clear
+
+# Random quotes array
+quotes=(
+"Keep pushing forward!"
+"Stay strong, SHADOW-X!"
+"Hack the world ethically!"
+"Dream big, act bigger!"
+"Knowledge is power!"
+"Code hard, win easy!"
+)
+
+# Pick a random quote
+RANDOM_QUOTE=${quotes[$RANDOM % ${#quotes[@]}]}
+
+# Display Banner with colors
+figlet -f slant "$user" | lolcat
+echo ""
+type_text "Welcome to Termux, $user!" 0.05
+type_text "$RANDOM_QUOTE" 0.03
+echo ""
+echo -e "\e[1;92mHappy Hacking 😎\e[0m"
+echo ""
+
+# Optional: Make this banner auto-run on Termux startup
+# echo "bash ~/shadow-x-banner.sh" >> ~/.bashrc
